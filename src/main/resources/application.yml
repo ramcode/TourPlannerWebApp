@@ -1,0 +1,49 @@
+spring:
+    profiles.active: disablequartz
+    application:
+        mapping: /*
+        name: tourbackend
+    jmx.enabled: true
+    main.webenvironment: true
+    datasource:
+        url: jdbc:mysql://dev1.clqjpb56fe5u.us-west-2.rds.amazonaws.com:3306/dev?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false
+        username: humus
+        password: eyal12345!
+        maxPoolSize: 10
+        driverClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+    jpa:
+        databasePlatform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
+        showSql: false
+        hibernate:
+            ddlAuto: none
+            namingStrategy: com.mabaya.common.database.configuration.LowerCamelCaseNamingStrategy
+
+management:
+    port: 7080
+    contextPath: /manage
+repositories:
+    scan: com.ridetour.backend
+multipart:
+    maxFileSize: 50Mb
+springfox:
+    documentation:
+        swagger:
+            v2:
+                path: /ridetour-api
+aws:
+    s3:
+        bucket: ridetour-media
+cloud:
+    aws:
+        credentials:
+            accessKey: AKIAJHTVFBXV5C2A6NOQ
+            secretKey: 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
+
+        region: us-west-2
+        s3:
+            bucket: ridetour-media
+server:
+    contextPath: /ridetour
+    compression:
+        enabled: true

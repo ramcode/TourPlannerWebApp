@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF8"?>
+<!--suppress XmlUnboundNsPrefix -->
+<configuration>
+    <jmxConfigurator/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/consoleappender.xml"/>
+    <property name="LOG_MAX_SIZE" value="30MB"/>
+    <property name="LOG_FILE" value="${LOG_FILE:${LOG_PATH:${java.io.tmpdir:/tmp}/}app.log}"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyyMMddHH:mm:ss.SSS} %5p ${PID:}[%t]--- %-40.40logger{39} : %m%n%wex"/>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+            <fileNamePattern>${LOG_FILE}.%i.log</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${LOG_MAX_SIZE}</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.boot.context.web.ErrorPageFilter" level="OFF"/>
+    <logger name="com.ridetour" level="INFO"/>
+    <root level="INFO">
+        <appender ref="CONSOLE"/>
+        <appender ref="FILE"/>
+    </root>
+</configuration>
